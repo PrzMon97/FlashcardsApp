@@ -4,15 +4,19 @@ import {
   Landing,
   Register,
   Login,
+  Lesson,
   DashboardLayout,
   Error,
   Profile,
+  Home,
   Stats,
   AddFlashcard,
   AllFlashcards,
+  EditFlashcard,
   Admin,
 } from "./pages";
-
+//import { loader as allFlashcardsLoader } from "./pages/AllFlashcards";
+// import { loader as dashboardLoader } from './pages/DashboardLayout'";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,8 +35,17 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <DashboardLayout />,
+        //loader: dashboardLoader,
         children: [
-          { index: true, element: <AddFlashcard /> },
+          { index: true, element: <Home /> },
+          {
+            path: "lesson",
+            element: <Lesson />,
+          },
+          {
+            path: "add-flashcard",
+            element: <AddFlashcard />,
+          },
           {
             path: "stats",
             element: <Stats />,
@@ -41,7 +54,10 @@ const router = createBrowserRouter([
             path: "all-flashcards",
             element: <AllFlashcards />,
           },
-
+          {
+            path: "edit-flashcard",
+            element: <EditFlashcard />,
+          },
           {
             path: "profile",
             element: <Profile />,

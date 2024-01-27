@@ -29,6 +29,13 @@ const Wrapper = styled.section`
     display: grid;
     place-items: center;
   }
+
+  .flashcards-list th,
+  .flashcards-list td {
+    width: 20%;
+    padding: 8px;
+  }
+
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
