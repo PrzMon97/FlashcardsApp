@@ -5,20 +5,30 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 //zakładanie konta
-router.post("/signup", (req, res, next) => {
-  // tu najpierw generuje hash
-  bcrypt.hash(req.body.password, 10).then((hash) => {
+router.post("/signup", async (req, res, next) => {
+  try {
+    // Generuj hash hasła
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // Twórz nowego użytkownika
     const user = new User({
+      name: req.body.name,
+      lastname: req.body.lastname,
       email: req.body.email,
-      password: hash,
+      password: hashedPassword,
     });
-    user
-      .save()
-      .then(() => res.status(201).json({ wiadomosc: "Dodano użytkownika" }))
-      .catch((err) => res.status(500).json(err));
-  });
+
+    // Zapisz użytkownika w bazie danych
+    await user.save();
+
+    res.status(201).json({ message: "Użytkownik został zarejestrowany" });
+  } catch (error) {
+    console.error("Błąd rejestracji:", error);
+    res.status(500).json({ message: "Wystąpił błąd podczas rejestracji" });
+  }
 });
 // wersja stara hasła przez hashowaniem  password: req.body.password
+module.exports = router;
 
 // logowanie
 router.post("/login", (req, res, next) => {

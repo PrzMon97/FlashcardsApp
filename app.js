@@ -17,6 +17,9 @@ mongoose.connect(
 const morgan = require("morgan");
 app.use(morgan("combined"));
 
+//cors
+const cors = require("cors");
+
 // 6 parsowanie body
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -29,6 +32,9 @@ const userRoutes = require("./api/routes/users");
 // 4 uruchom routy
 app.use("/flashcards", flashcardRoutes);
 app.use("/users", userRoutes);
+
+// cors
+app.use(cors());
 
 app.use((req, res, next) => {
   res.status(200).json({ wiadomosc: "Wszystko śmiga" });

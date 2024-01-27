@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 
 // schemat (tak jak w postman )
 const userSchema = mongoose.Schema({
+  name: String,
+  lastname: String,
   email: String,
   password: String,
 });
